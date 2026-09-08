@@ -90,4 +90,4 @@ CDN `cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js`。`#ex
 
 ## 部署
 
-尚未推公開 GitHub repo／GitHub Pages（比照使用者「實驗性新工具部署前先確認」的標準做法，發布前需先詢問使用者）。未來若要推廣，只差 `.github/workflows` 自動部署這一步（跑馬燈／訪客計數器／截圖分享皆已於 2026-09-08 完成）。
+已推公開 GitHub repo `M255525/traffic-rank-estimator`，用 `.github/workflows/deploy-pages.yml`（比照 `text-organizer-studio` 逐字複製）以 Actions workflow 部署 GitHub Pages（非 legacy branch-source，`gh api repos/M255525/traffic-rank-estimator/pages -f build_type=workflow` 開啟），2026-09-08 已上線：<https://m255525.github.io/traffic-rank-estimator/>（已用 Playwright 對正式網址驗證頁面正常渲染、manifest/service-worker 可正常抓取）。
