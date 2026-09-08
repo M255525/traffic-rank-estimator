@@ -6,7 +6,13 @@
 
 **100% 需要 API 金鑰才能運作，無規則式離線備援**（與工作區其他 BYOK 工具的關鍵差異）：沒有免費、CORS 友善的真實流量 API 可串接，估算的唯一來源就是 LLM 的訓練知識，因此沒有「無金鑰時退回規則式」這條路——`index.html` 與 `manual.html` 都在最上方明確告知使用者這一點，避免使用者以為跟其他工具一樣有免金鑰模式。
 
-**不套用序號授權**（比照 `social-post-grader`／`coffee-ig-planner` 無授權慣例）。**無可攜式桌面版 exe**。
+**無可攜式桌面版 exe**。
+
+**序號授權（鎖定整個工具，12 個月，2026-09-08 新增，取代原本「不套用序號授權」的設計）**：比照 `行銷內容工具/amazon-listing-generator` 的模式：`#licenseGate` 全螢幕遮罩預設鎖定，驗證通過才加上 `.hidden`；載入時一律對後端即時重驗，背景每 20 分鐘重驗一次。`localStorage` key：`trafficRankSerial`；徽章放在 `.topbar-right`。
+
+- **綁定的 Google Sheet**：使用者指定沿用 `product-title-generator`／`amazon-listing-generator` 共用的既有表 <https://docs.google.com/spreadsheets/d/1pqGlCvUstowBzZh7J4xEa0jy3KoK4UeHUiyMTzcSGo4/edit>。`Code.gs` 固定操作獨立分頁「TrafficRank序號」（`SHEET_NAME` 常數）；分頁不存在時 `getLicenseSheet_()` 會自動 `insertSheet()` 並寫入表頭。
+- **部署方式**：`clasp create --parentId <SheetID>`（不加 `--type`）→ 複製 `Code.gs` → `appsscript.json` 加 `webapp:{executeAs:"USER_DEPLOYING",access:"ANYONE_ANONYMOUS"}` → `clasp push --force` → `clasp deploy`，全程在 `.gas-deploy/`（已加入 `.gitignore`，不進版控）內操作。已部署：`LICENSE_CHECK_URL = https://script.google.com/macros/s/AKfycbyEprHv7xFyP4IDWW4p5dXRGlle-kDAfW9YjeJinzb4iHxya98gB43MGXXuZC4kvwoUUQ/exec`，Apps Script 編輯器：<https://script.google.com/d/1470w5kezfscrEqVs1SMnoDktTExSg7s0WkTK-mP741ep0SlSrnKCKmjC/edit>。
+- **⚠️ 尚待使用者完成一次性 OAuth 授權**：部署後尚未經過首次同意流程，前端 `licenseGate` 目前會顯示「無法連線授權伺服器」。需使用者親自用瀏覽器開啟 Apps Script 編輯器執行一次 `doGet` 並完成同意畫面，之後才能正式驗證序號。
 
 ## 架構
 
