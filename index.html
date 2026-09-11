@@ -405,7 +405,12 @@
           <select id="aiModel"></select>
           <input type="text" id="aiModelCustom" placeholder="輸入自訂模型名稱" style="display:none;margin-top:6px;">
         </label>
-        <label class="full">API 金鑰<input type="password" id="aiKey" placeholder="貼上你的 API Key" autocomplete="off"></label>
+        <label class="full">API 金鑰
+          <span style="position:relative;display:block;">
+            <input type="password" id="aiKey" placeholder="貼上你的 API Key" autocomplete="off" style="padding-right:34px;box-sizing:border-box;">
+            <button type="button" onclick="var i=this.previousElementSibling;i.type=i.type==='password'?'text':'password';this.textContent=i.type==='password'?'👁':'🙈';" title="顯示／隱藏金鑰" aria-label="顯示／隱藏金鑰" style="position:absolute;right:4px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:15px;padding:4px 6px;opacity:.65;line-height:1;">👁</button>
+          </span>
+        </label>
       </div>
       <p class="api-note">金鑰只存在這台電腦的瀏覽器（localStorage），不會送到本工具以外的任何地方，也不會經過任何自建後端——直接從瀏覽器連到你選擇的服務商。</p>
     </details>
